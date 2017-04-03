@@ -66,7 +66,7 @@ class MainHandler(webapp2.RequestHandler):
         password = self.request.get("password")
         confirm = self.request.get("confirm")
         email = cgi.escape(self.request.get("email"))
-        if password != confirm or valid_username(username) or valid_password(password) or valid_email(email):
+        if password != confirm or valid_username(username) or valid_password(password) or (len(email) > 0 and valid_email(email)):
             self.get(username, password, confirm, email)
         else:
             self.redirect("/welcome?user=" + username)
